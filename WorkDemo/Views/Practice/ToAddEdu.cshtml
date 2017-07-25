@@ -1,0 +1,112 @@
+﻿
+<style type="text/css">
+    a {
+        text-decoration:none;
+    }
+
+    table.gridtable {
+        font-family: verdana,arial,sans-serif;
+        font-size: 11px;
+        color: #333333;
+        border-width: 1px;
+        border-color: #666666;
+        border-collapse: collapse;
+    }
+
+        table.gridtable th {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #dedede;
+        }
+
+        table.gridtable td {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #ffffff;
+        }
+
+    .add {
+        height: 34px;
+        width: 100px;
+        line-height: 34px;
+        padding: 0 11px;
+        background: #dedede;
+        border: 1px #dedede solid;
+        border-radius: 3px;
+        display: inline-block;
+        text-decoration: none;
+        font-size: 12px;
+        outline: none;
+    }
+</style>
+<link href="~/Content/themes/base/minified/lyz.calendar.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.5.1.js"></script>
+<script src="~/Scripts/lyz.calendar.min.js"></script>
+<script>
+    //写的途中发现如果要使用this关键字，必须function(this,event)这样写，不然获取不到id值，获取的仅仅是Object
+    var n = 1;
+    function findDate(a,b) {
+        var id = $(a).attr('id');
+        $("#"+id).calendar({
+            speed: 200,                                           // 三种预定速度之一的字符串("slow", "normal", or "fast")或表示动画时长的毫秒数值(如：1000),默认：200
+            complement: true,                                     // 是否显示日期或年空白处的前后月的补充,默认：true
+            readonly: true,                                       // 目标对象是否设为只读，默认：true
+            callback: function () {                               // 点击选择日期后的回调函数
+
+            }
+        });
+    };
+    function EndDate(a,event) {
+        var id = $(a).attr('id');
+        $("#"+id).calendar();
+    }
+    function AddTr() {
+                var tr = $("<tr></tr>");
+                var td1 = $("<td><input type='text' name='List[" + n + "].Education' value='' ></td>");
+                var td2 = $("<td><input type='text' name='List[" + n + "].EduSystem' value='' ></td>");
+                var td3 = $("<td><input type='text' name='List[" + n + "].StartTime' id='txtBeginDate" + n + "' value=''  onclick='findDate(this,event)'></td>");
+                var td4 = $("<td><input type='text' name='List[" + n + "].EndTime'   id='txtEndDate" + n + "'  value='' onclick='EndDate(this,event)'></td>");
+                var td5 = $("<td><input type='text' name='List[" + n + "].School' value='' ></td>");
+                td1.appendTo(tr);
+                td2.appendTo(tr);
+                td3.appendTo(tr);
+                td4.appendTo(tr);
+                td5.appendTo(tr);
+                $("table[id=tab]").append(tr);
+                n++;
+        
+    }
+    $("#commit").click(function () {
+        $("#form1").submit();
+    })
+</script>
+<h2>已经成功录入基本信息，请录入教育信息</h2>
+<div><button   class="add" onclick="AddTr()">增加信息</button></div>
+<br />
+<form action="/Practice/ToAddInfo" id="form1" method="post">
+    <input type="hidden" value="@ViewBag.PeopleId" name="Pid" />
+    <table class="gridtable" id="tab">
+        <tr>
+            <th>学历</th>
+            <th>学制</th>
+            <th>开始时间</th>
+            <th>结束时间</th>
+            <th>学校</th>
+        </tr>
+        <tr>
+            <td><input type="text" name="List[0].Education" /></td>
+            <td><input type="text" name="List[0].EduSystem" /></td>
+            <td><input type="text" name="List[0].StartTime" id="txtBeginDate" onclick="findDate(this,event)"/></td>
+            <td><input type="text" name="List[0].EndTime" id="txtEndDate" onclick="EndDate(this, event)" /></td>
+            <td><input type="text" name="List[0].School" /></td>
+        </tr>
+
+
+    </table>
+    <br />
+    <div><button class="add">确定提交</button></div>
+</form>

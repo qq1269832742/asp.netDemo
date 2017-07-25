@@ -1,0 +1,84 @@
+﻿<!-- CSS goes in the document HEAD or added to your external stylesheet -->
+<style type="text/css">
+    a {
+        text-decoration: none;
+    }
+
+    table.gridtable {
+        font-family: verdana,arial,sans-serif;
+        font-size: 11px;
+        color: #333333;
+        border-width: 1px;
+        border-color: #666666;
+        border-collapse: collapse;
+    }
+
+        table.gridtable th {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #dedede;
+        }
+
+        table.gridtable td {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #ffffff;
+        }
+
+    #add {
+        height: 34px;
+        width: 100px;
+        line-height: 34px;
+        padding: 0 11px;
+        background: #dedede;
+        border: 1px #dedede solid;
+        border-radius: 3px;
+        display: inline-block;
+        text-decoration: none;
+        font-size: 12px;
+        outline: none;
+    }
+</style>
+
+<h2>信息查询成功,<a href="/Practice/Index">点进进入主界面</h2>
+<table class="gridtable" id="tab">
+    <tr>
+        <th>学历</th>
+        <th>学制</th>
+        <th>开始时间</th>
+        <th>结束时间</th>
+        <th>学校</th>
+    </tr>
+@{
+    if (@ViewBag.list.Count == 0)
+    {
+        <tr height="36px">
+            <td >无信息</td>
+            <td>无信息</td>
+            <td>无信息</td>
+            <td>无信息</td>
+            <td>无信息</td>
+
+          </tr>
+    }
+    else
+    {
+        foreach (var item in @ViewBag.list)
+        {
+            <tr height="36px">
+                <td >@item.Education</td>
+                <td >@item.EduSystem</td>
+                <td >@item.StartTime</td>
+                <td >@item.EndTime</td>
+                <td >@item.School</td>
+            </tr>
+        }
+    }
+
+}
+</table>
+<br />

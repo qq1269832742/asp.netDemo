@@ -1,0 +1,40 @@
+﻿<link href="~/Content/themes/base/minified/lyz.calendar.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.5.1.js"></script>
+<script src="~/Scripts/lyz.calendar.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script>
+    
+    $(function () {
+        $("#txtBeginDate").calendar({
+            controlId: "divDate",                                 // 弹出的日期控件ID，默认: $(this).attr("id") + "Calendar"
+            speed: 200,                                           // 三种预定速度之一的字符串("slow", "normal", or "fast")或表示动画时长的毫秒数值(如：1000),默认：200
+            complement: true,                                     // 是否显示日期或年空白处的前后月的补充,默认：true
+            readonly: true,                                       // 目标对象是否设为只读，默认：true
+            callback: function () {                               // 点击选择日期后的回调函数
+                
+            }
+        });
+    });
+</script>
+<h2>录入界面</h2>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <form action="/Practice/ToAddEdu" method="post" id="addForm">
+                <fieldset>
+                    <legend>输入项</legend>
+                    <label>工号</label><br /><input type="text" name="Card" /> <br />
+                    <label>姓名</label><br /><input type="text" name="Name" placeholder="姓名不能为空" id="empName" required /> <br />
+                    <label>电话号码</label><br /><input type="text" name="Phone" /> <br />
+                    <label>国籍</label><br /><input type="text" name="Country" /> <br />
+                    <label>出生日期</label><br /><input type="text" name="Birthday" id="txtBeginDate" /> <br />
+                    <label>公司</label><br /><input type="text" name="Company" /> <br />
+                    <label>部门</label><br /><input type="text" name="Department" /> <br />
+                    <label>民族</label><br /><input type="text" name="Nation" /> <br />
+                    <label>性别</label><br /><input type="text" name="Sex" /> <br /><br />
+                    <input type="submit" class="btn" style="background:#38f;width:76px;height:30px" id="sb"  value="提交">
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

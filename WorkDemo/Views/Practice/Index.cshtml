@@ -1,0 +1,102 @@
+﻿<!-- CSS goes in the document HEAD or added to your external stylesheet -->
+<style type="text/css">
+    a {
+        text-decoration: none;
+
+    }
+    td a {
+        color: #1aa3ac;
+    }
+    table.gridtable {
+        font-family: verdana, arial, sans-serif;
+        font-size: 11px;
+        color: #333333;
+        border-width: 1px;
+        border-color: #666666;
+        border-collapse: collapse;
+    }
+    table.gridtable th {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+        background-color: #dedede;
+    }
+
+    table.gridtable td {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+        background-color: #ffffff;
+    }
+    .add {
+        height: 34px;
+        width: 100px;
+        line-height: 34px;
+        padding: 0 11px;
+        background: #dedede;
+        border: 1px #dedede solid;
+        border-radius: 3px;
+        display: inline-block;
+        text-decoration: none;
+        font-size: 12px;
+        outline: none;
+    }
+    div {
+        display: inline-block;
+    }
+    #str {
+        height: 34px;
+    }
+</style>
+<script src="~/Scripts/jquery-1.8.2.js"></script>
+<h2>员工界面</h2>
+<div class="con"><a href="/Practice/Add" class="add">录入员工</a></div>
+<div class="con">
+    <form action="/Practice/FindByName" method="post">
+        <input type="submit" value="模糊查询" class="add"/>
+        <input type="text" name="Name" placeholder="按姓名查询" id="str" /> 
+    </form>  
+</div>
+<!-- Table goes in the document BODY -->
+<br />
+<table class="gridtable">
+    <tr>
+        <th>工号</th>
+        <th>姓名</th>
+        <th>电话号码</th>
+        <th>国籍</th>
+        <th>出生日期</th>
+        <th>公司</th>
+        <th>部门</th>
+        <th>民族</th>
+        <th>性别</th>
+        <th>教育信息</th>
+        <th>是否删除</th>
+    </tr>
+    <!--只显示逻辑没有删除的数据 -->
+    @{
+
+        foreach (var item in @ViewBag.list)
+        {
+            if (@item.Flag == 0)
+            {
+                <tr height="36px">
+                    <td>@item.Card</td>
+                    <td>@item.Name</td>
+                    <td>@item.Phone</td>
+                    <td>@item.Country</td>
+                    <td>@item.Birthday</td>
+                    <td>@item.Company</td>
+                    <td>@item.Department</td>
+                    <td>@item.Nation</td>
+                    <td>@item.Sex</td>
+                    <td><a href="/Practice/ToFindInfo?Id=@item.Id">个人信息</a></td>
+                    <td><a href="/Practice/ToDeleteInfo?Id=@item.Id">确定删除</a></td>
+                </tr>
+            }
+        }
+
+    }
+</table>
